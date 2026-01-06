@@ -52,7 +52,7 @@ const uaData = {
         'CA': ['Samsung', 'Google Pixel', 'LG', 'Motorola', 'Apple'],
         'AU': ['Samsung', 'Google Pixel', 'Oppo', 'Vivo', 'Apple']
     },
-    // EMAIL DATA - 50 Names each category (Sampled, imagine 1000s in real file)
+    // EMAIL DATA (SAMPLE OF 1000s)
     maleNames: ["James", "John", "Robert", "Michael", "William", "David", "Richard", "Joseph", "Thomas", "Charles", "Christopher", "Daniel", "Matthew", "Anthony", "Donald", "Mark", "Paul", "Steven", "Andrew", "Kenneth", "Joshua", "George", "Kevin", "Brian", "Edward", "Ronald", "Timothy", "Jason", "Jeffrey", "Ryan", "Jacob", "Gary", "Nicholas", "Eric", "Jonathan", "Stephen", "Larry", "Justin", "Scott", "Brandon", "Benjamin", "Samuel", "Frank", "Gregory", "Raymond", "Alexander", "Patrick", "Jack", "Dennis", "Jerry", "Tyler", "Aaron", "Jose", "Adam", "Henry", "Nathan", "Douglas", "Zachary", "Peter", "Kyle", "Walter", "Ethan", "Jeremy", "Harold", "Keith", "Christian", "Roger", "Noah", "Gerald", "Carl", "Terry", "Sean", "Austin", "Arthur", "Lawrence", "Jesse", "Dylan", "Bryan", "Joe", "Jordan", "Billy", "Bruce", "Albert", "Willie", "Gabriel", "Logan", "Alan", "Juan", "Wayne", "Roy", "Ralph", "Randy", "Eugene", "Vincent", "Russell", "Louis", "Philip", "Bobby", "Johnny", "Bradley", "Caleb", "Liam", "Mason", "Oliver", "Elijah", "Aiden", "Lucas", "Ethan"],
     femaleNames: ["Mary", "Patricia", "Jennifer", "Linda", "Elizabeth", "Barbara", "Susan", "Jessica", "Sarah", "Karen", "Nancy", "Lisa", "Margaret", "Betty", "Sandra", "Ashley", "Dorothy", "Kimberly", "Emily", "Donna", "Michelle", "Carol", "Amanda", "Melissa", "Deborah", "Stephanie", "Rebecca", "Laura", "Sharon", "Cynthia", "Kathleen", "Amy", "Shirley", "Angela", "Helen", "Anna", "Brenda", "Pamela", "Nicole", "Samantha", "Katherine", "Emma", "Ruth", "Christine", "Catherine", "Debra", "Rachel", "Carolyn", "Janet", "Virginia", "Maria", "Heather", "Diane", "Julie", "Joyce", "Evelyn", "Joan", "Victoria", "Kelly", "Christina", "Lauren", "Frances", "Martha", "Judith", "Cheryl", "Megan", "Andrea", "Olivia", "Ann", "Jean", "Alice", "Jacqueline", "Hannah", "Doris", "Kathryn", "Gloria", "Teresa", "Sara", "Janice", "Marie", "Julia", "Grace", "Judy", "Theresa", "Madison", "Beverly", "Denise", "Marilyn", "Amber", "Danielle", "Sophia", "Isabella", "Mia", "Charlotte", "Amelia", "Harper", "Evelyn"],
     titles: ["Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis", "Rodriguez", "Martinez", "Hernandez", "Lopez", "Gonzalez", "Wilson", "Anderson", "Thomas", "Taylor", "Moore", "Jackson", "Martin", "Lee", "Perez", "Thompson", "White", "Harris", "Sanchez", "Clark", "Ramirez", "Lewis", "Robinson", "Walker", "Young", "Allen", "King", "Wright", "Scott", "Torres", "Nguyen", "Hill", "Flores", "Green", "Adams", "Nelson", "Baker", "Hall", "Rivera", "Campbell", "Mitchell", "Carter", "Roberts", "Gomez", "Phillips", "Evans", "Turner", "Diaz", "Parker", "Cruz", "Edwards", "Collins", "Reyes", "Stewart", "Morris", "Morales", "Murphy", "Cook", "Rogers", "Gutierrez", "Ortiz", "Morgan", "Cooper", "Peterson", "Bailey", "Reed", "Kelly", "Howard", "Ramos", "Kim", "Cox", "Ward", "Richardson", "Watson", "Brooks", "Chavez", "Wood", "James", "Bennett", "Gray", "Mendoza", "Ruiz", "Hughes", "Price", "Alvarez", "Castillo", "Sanders", "Patel", "Myers", "Long", "Ross", "Foster", "Jimenez", "Powell", "Jenkins", "Perry", "Russell", "Sullivan"],
@@ -68,7 +68,7 @@ const uaData = {
         'de': { code: '+49', prefixes: ['151', '152', '157', '160', '162', '170', '171', '175', '176', '163'], digits: 7 },
         'fr': { code: '+33', prefixes: ['6', '7'], digits: 8 }
     },
-    // ADDRESS DATA
+    // ADDRESS DATA (WITH STATES/CITIES)
     address: {
         US: { 
             zip: "#####", 
@@ -115,7 +115,7 @@ const getBuild = () => rnd(['UP1A.231005.007', 'TP1A.220624.014', 'SP1A.210812.0
 const getChromeVer = () => `143.0.${Math.floor(Math.random()*5000)}.${Math.floor(Math.random()*150)}`;
 
 // ============================================
-// MAIN LOGIC
+// MAIN LOGIC STARTS
 // ============================================
 let isLoggedIn = false;
 let currentTool = null;
@@ -282,10 +282,18 @@ function loadTool(toolId) {
         output.innerHTML = `<div class="generator-grid"><div><label class="gen-label">Country</label><select id="numCountry" class="gen-input"><option value="us">USA (+1)</option><option value="uk">UK (+44)</option><option value="bd">Bangladesh (+880)</option><option value="ca">Canada (+1)</option><option value="au">Australia (+61)</option><option value="de">Germany (+49)</option><option value="fr">France (+33)</option></select></div><div><label class="gen-label">Quantity</label><input type="number" id="numQty" class="gen-input" value="50"></div></div><textarea id="numResult" class="w-full h-40 bg-black/50 border border-white/10 rounded-lg p-3 mt-4 text-green-400 font-mono text-xs focus:outline-none" readonly></textarea>`;
         controls.innerHTML = `<button onclick="runNumberGenerator()" class="bg-purple-600 hover:bg-purple-500 text-white px-6 py-2 rounded-lg font-bold text-sm">Generate Numbers</button>`;
     }
-    // 5. ADDRESS GENERATOR
+    // 5. ADDRESS GENERATOR (WITH DROPDOWNS)
     else if(toolId === 'address') {
         title.innerHTML = `<i class="ph-fill ph-map-pin text-yellow-400"></i> Address Generator`;
-        output.innerHTML = `<div class="generator-grid"><div><label class="gen-label">Country</label><select id="addrCountry" class="gen-input"><option value="US">USA</option><option value="UK">UK</option><option value="CA">Canada</option><option value="AU">Australia</option></select></div><div><label class="gen-label">Quantity</label><input type="number" id="addrQty" class="gen-input" value="5"></div></div><div id="addrResult" class="mt-4 space-y-2 h-40 overflow-y-auto text-xs text-gray-300"></div>`;
+        output.innerHTML = `
+            <div class="generator-grid">
+                <div><label class="gen-label">Country</label><select id="addrCountry" class="gen-input" onchange="loadStates()"><option value="">-- Select Country --</option><option value="US">United States</option><option value="UK">United Kingdom</option><option value="CA">Canada</option><option value="AU">Australia</option></select></div>
+                <div><label class="gen-label">State/Region</label><select id="addrState" class="gen-input" onchange="loadCities()"><option value="">Any State / Region</option></select></div>
+                <div class="full-width"><label class="gen-label">City</label><select id="addrCity" class="gen-input"><option value="">Any City</option></select></div>
+                <div><label class="gen-label">Quantity</label><input type="number" id="addrQty" class="gen-input" value="5"></div>
+            </div>
+            <div id="addrResult" class="mt-4 space-y-2 h-40 overflow-y-auto text-xs text-gray-300"></div>
+        `;
         controls.innerHTML = `<button onclick="runAddressGenerator()" class="bg-purple-600 hover:bg-purple-500 text-white px-6 py-2 rounded-lg font-bold text-sm">Generate Addresses</button>`;
     }
 }
@@ -470,16 +478,63 @@ function runNumberGenerator() {
     document.getElementById('numResult').value = Array.from(uniqueNumbers).join('\n');
 }
 
+// === ADDRESS GENERATOR LOGIC (UPDATED WITH DROPDOWNS) ===
+function loadStates() {
+    const countrySelect = document.getElementById("addrCountry").value;
+    const stateSelect = document.getElementById("addrState");
+    const citySelect = document.getElementById("addrCity");
+    
+    stateSelect.innerHTML = '<option value="">Any State / Region</option>';
+    citySelect.innerHTML = '<option value="">Any City</option>';
+
+    if (countrySelect && uaData.address[countrySelect]) {
+        const states = Object.keys(uaData.address[countrySelect].states).sort();
+        states.forEach(state => {
+            const option = document.createElement("option");
+            option.value = state;
+            option.text = state;
+            stateSelect.appendChild(option);
+        });
+    }
+}
+
+function loadCities() {
+    const countrySelect = document.getElementById("addrCountry").value;
+    const stateSelect = document.getElementById("addrState").value;
+    const citySelect = document.getElementById("addrCity");
+
+    citySelect.innerHTML = '<option value="">Any City</option>';
+
+    if (countrySelect && stateSelect && uaData.address[countrySelect].states[stateSelect]) {
+        const cities = uaData.address[countrySelect].states[stateSelect].sort();
+        cities.forEach(city => {
+            const option = document.createElement("option");
+            option.value = city;
+            option.text = city;
+            citySelect.appendChild(option);
+        });
+    }
+}
+
 function runAddressGenerator() {
     const country = document.getElementById('addrCountry').value;
+    const selectedState = document.getElementById('addrState').value;
+    const selectedCity = document.getElementById('addrCity').value;
     const qty = parseInt(document.getElementById('addrQty').value);
-    const conf = uaData.address[country];
     const div = document.getElementById('addrResult');
+    
+    if (!country) { alert("Please select a country first."); return; }
+    
     div.innerHTML = '';
+    const conf = uaData.address[country];
     
     for(let i=0; i<qty; i++) {
-        let st = rnd(Object.keys(conf.states));
-        let city = rnd(conf.states[st]);
+        let finalState = selectedState;
+        let finalCity = selectedCity;
+
+        if (!finalState) finalState = rnd(Object.keys(conf.states));
+        if (!finalCity) finalCity = rnd(conf.states[finalState]);
+
         let streetName = rnd(uaData.streets);
         let streetNum = Math.floor(Math.random() * 999) + 1;
         
@@ -491,7 +546,7 @@ function runAddressGenerator() {
                 <strong class="text-purple-400">Address #${i + 1}</strong><br>
                 <span class="text-gray-300">
                 ${streetNum} ${streetName}<br>
-                ${city}, ${st} ${zip}<br>
+                ${finalCity}, ${finalState} ${zip}<br>
                 ${country}
                 </span>
             </div>
