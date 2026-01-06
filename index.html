@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProToolsHub - Premium Tools</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
+                    colors: { dark: '#0f172a', card: '#1e293b' }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-dark text-white overflow-x-hidden selection:bg-purple-500 selection:text-white flex flex-col min-h-screen">
+
+    <nav class="fixed top-0 w-full z-50 bg-dark/90 backdrop-blur-md border-b border-white/10 px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-2 cursor-pointer" onclick="window.location.reload()">
+            <img id="imgLogo" src="" alt="Logo" class="h-9 w-auto hidden object-contain">
+            <div id="textLogo" class="flex items-center gap-2">
+                <div class="p-2 bg-gradient-to-tr from-purple-600 to-blue-600 rounded-lg shadow-lg">
+                    <i class="ph-fill ph-lightning text-white text-xl"></i>
+                </div>
+                <span class="text-xl font-bold tracking-wide">ProTools<span class="text-purple-400">Hub</span></span>
+            </div>
+        </div>
+        
+        <div class="hidden md:flex gap-6 text-sm font-medium text-gray-300">
+            <div id="menuPublic" class="flex gap-6">
+                <a href="#features" class="hover:text-white transition">Tools</a>
+                <a href="#public-courses" class="hover:text-white transition">Courses</a>
+                <a href="#pricing" class="hover:text-white transition">Pricing</a>
+            </div>
+            <div id="menuPrivate" class="hidden gap-6">
+                <button onclick="showSection('dashboard')" class="text-white font-bold border-b-2 border-purple-500 pb-1">Dashboard</button>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+            <span id="userPlanBadge" class="hidden text-[10px] px-2 py-0.5 rounded bg-red-500/10 text-red-400 border border-red-500/20 font-mono font-bold animate-pulse">LOCKED</span>
+            <button id="navAuthBtn" onclick="openAuthModal()" class="px-5 py-2 rounded-full bg-white/10 border border-white/10 hover:bg-white/20 transition text-sm font-medium">Login / Register</button>
+        </div>
+    </nav>
+
+    <div class="flex-grow pt-20">
+        <div class="bg-purple-900/20 border-b border-purple-500/20 py-2 overflow-hidden relative">
+            <div class="marquee-text-container">
+                <div id="noticeText" class="marquee-text whitespace-nowrap text-sm text-purple-200 font-medium">Loading...</div>
+            </div>
+        </div>
+
+        <div id="home-section">
+            <header class="pt-20 pb-16 px-6 text-center relative max-w-5xl mx-auto">
+                <span class="inline-block px-4 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-300 text-xs font-bold uppercase mb-6">Premium Automation Software</span>
+                <h1 class="text-5xl md:text-7xl font-extrabold mb-6 leading-tight">All-in-One Toolkit for <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 animate-pulse">Digital Marketers</span></h1>
+                <button onclick="scrollToPricing()" class="px-8 py-3 bg-white text-black font-bold rounded-xl hover:bg-gray-200 transition mt-8 shadow-xl">Get Started Now</button>
+            </header>
+
+            <section id="public-courses" class="py-10 border-y border-white/5 bg-[#0b1121] overflow-hidden mb-10">
+                <div class="text-center mb-6"><h3 class="text-xs font-bold text-gray-500 uppercase tracking-widest flex justify-center items-center gap-2"><i class="ph-fill ph-graduation-cap text-purple-500"></i> Premium Courses</h3></div>
+                <div class="marquee-container relative"><div id="publicCourseMarquee" class="marquee-content gap-6"></div></div>
+            </section>
+
+            <section id="features" class="py-16 px-6 max-w-7xl mx-auto relative">
+                <div class="text-center mb-16"><h2 class="text-3xl font-bold mb-4">Powerful Generators</h2><p class="text-gray-400">Unlock all tools with a single membership.</p></div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10">
+                    <div class="tool-card group" onclick="openAuthModal()"><div class="flex justify-between items-start mb-5"><i class="ph-fill ph-mask-happy text-3xl text-blue-400"></i><i class="ph ph-lock-key text-gray-600 group-hover:text-red-400 transition"></i></div><h3 class="text-xl font-bold mb-2">User Agent Gen</h3><p class="text-gray-400 text-sm">Undetected browser fingerprints.</p></div>
+                    <div class="tool-card group" onclick="openAuthModal()"><div class="flex justify-between items-start mb-5"><i class="ph-fill ph-envelope-open text-3xl text-orange-400"></i><i class="ph ph-lock-key text-gray-600 group-hover:text-red-400 transition"></i></div><h3 class="text-xl font-bold mb-2">Email Generator</h3><p class="text-gray-400 text-sm">Unlimited Dot-Trick aliases.</p></div>
+                    <div class="tool-card group" onclick="openAuthModal()"><div class="flex justify-between items-start mb-5"><i class="ph-fill ph-shield-check text-3xl text-green-400"></i><i class="ph ph-lock-key text-gray-600 group-hover:text-red-400 transition"></i></div><h3 class="text-xl font-bold mb-2">Email Validator</h3><p class="text-gray-400 text-sm">Check live MX records.</p></div>
+                    <div class="tool-card group" onclick="openAuthModal()"><div class="flex justify-between items-start mb-5"><i class="ph-fill ph-device-mobile text-3xl text-purple-400"></i><i class="ph ph-lock-key text-gray-600 group-hover:text-red-400 transition"></i></div><h3 class="text-xl font-bold mb-2">Number Generator</h3><p class="text-gray-400 text-sm">Valid mobile number formats.</p></div>
+                    <div class="tool-card group" onclick="openAuthModal()"><div class="flex justify-between items-start mb-5"><i class="ph-fill ph-map-pin text-3xl text-yellow-400"></i><i class="ph ph-lock-key text-gray-600 group-hover:text-red-400 transition"></i></div><h3 class="text-xl font-bold mb-2">Address Generator</h3><p class="text-gray-400 text-sm">Full USA/UK real address profiles.</p></div>
+                    <div class="tool-card opacity-60 cursor-not-allowed border-white/5"><div class="flex justify-between items-start mb-5"><i class="ph-fill ph-squares-four text-3xl text-gray-600"></i></div><h3 class="text-xl font-bold mb-2 text-gray-600">Identity Gen</h3><p class="text-gray-600 text-sm">Coming Soon.</p></div>
+                </div>
+            </section>
+
+            <section id="pricing" class="py-20 px-6 bg-[#0b1121] border-t border-white/5 relative">
+                <div class="max-w-7xl mx-auto relative z-10">
+                    <div class="text-center mb-16"><h2 class="text-3xl font-bold mb-4">Simple Pricing</h2><p class="text-gray-400">Instant activation via Bkash/Nagad.</p></div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="pricing-card"><h3 class="text-lg font-bold text-gray-300">Starter</h3><div class="my-4 text-3xl font-bold text-white">৳200<span class="text-xs font-normal">/7 Days</span></div><button onclick="openAuthModal('Starter - 200tk')" class="w-full py-2 bg-white/10 hover:bg-white/20 rounded-lg font-bold text-white text-sm">Buy Now</button></div>
+                        <div class="pricing-card"><h3 class="text-lg font-bold text-gray-300">Standard</h3><div class="my-4 text-3xl font-bold text-white">৳500<span class="text-xs font-normal">/15 Days</span></div><button onclick="openAuthModal('Standard - 500tk')" class="w-full py-2 bg-white/10 hover:bg-white/20 rounded-lg font-bold text-white text-sm">Buy Now</button></div>
+                        <div class="pricing-card border-purple-500 bg-purple-900/20"><h3 class="text-lg font-bold text-white">Elite</h3><div class="my-4 text-3xl font-bold text-white">৳1,000<span class="text-xs font-normal">/Month</span></div><button onclick="openAuthModal('Elite - 1000tk')" class="w-full py-2 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg font-bold text-white text-sm">Buy Now</button></div>
+                        <div class="pricing-card"><h3 class="text-lg font-bold text-gray-300">Legend</h3><div class="my-4 text-3xl font-bold text-white">৳5,000<span class="text-xs font-normal">/Year</span></div><button onclick="openAuthModal('Legend - 5000tk')" class="w-full py-2 bg-white/10 hover:bg-white/20 rounded-lg font-bold text-white text-sm">Buy Now</button></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="dashboard-section" class="hidden pb-10 px-6">
+            <div class="max-w-7xl mx-auto flex flex-col gap-8">
+                <div class="flex flex-col sm:flex-row justify-between items-end gap-4 bg-card p-6 rounded-2xl border border-white/10 shadow-inner mt-6">
+                    <div><h2 class="text-2xl font-bold text-white">Welcome, <span id="dashUserName" class="text-purple-400">User</span></h2><p class="text-gray-400 text-sm mt-1">Status: <span id="dashUserPlan" class="text-red-400 font-bold">Locked 🔒</span></p></div>
+                    <div class="flex gap-2 w-full sm:w-auto sm:max-w-xs bg-dark p-2 rounded-xl border border-white/5"><input type="text" id="vipCodeInput" placeholder="Enter VIP Code" class="bg-transparent text-white text-sm outline-none w-full px-2 font-mono uppercase"><button onclick="redeemVipCode()" class="bg-green-600 hover:bg-green-500 text-white px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap shadow-lg">Redeem</button></div>
+                </div>
+                
+                <div class="bg-[#0b1121] rounded-2xl border border-white/5 overflow-hidden py-6 shadow-lg">
+                    <div class="px-6 mb-4"><h3 class="font-bold text-gray-400 uppercase tracking-widest text-[10px]">Premium Courses</h3></div>
+                    <div class="marquee-container relative"><div id="dashboardCourseMarquee" class="marquee-content gap-6"></div></div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-6 flex items-center gap-2.5 text-gray-200"><i class="ph-fill ph-toolbox text-purple-500 text-2xl"></i> Available Tools</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="tool-card group" onclick="checkAccess('ua')"><div class="flex justify-between items-start mb-5"><i class="ph-fill ph-mask-happy text-3xl text-blue-400"></i><i id="lockIcon_ua" class="ph ph-lock-key text-gray-500 group-hover:text-red-400 transition"></i></div><h3 class="text-xl font-bold mb-2">User Agent Gen</h3><p class="text-gray-400 text-sm">Undetected browser fingerprints.</p><div class="mt-4 text-xs font-bold text-gray-500 flex items-center gap-1.5 transition group-hover:text-purple-400">Launch Tool <i class="ph ph-arrow-right"></i></div></div>
+                        <div class="tool-card group" onclick="checkAccess('email')"><div class="flex justify-between items-start mb-5"><i class="ph-fill ph-envelope-open text-3xl text-orange-400"></i><i id="lockIcon_email" class="ph ph-lock-key text-gray-500 group-hover:text-red-400 transition"></i></div><h3 class="text-xl font-bold mb-2">Email Generator</h3><p class="text-gray-400 text-sm">Unlimited Dot-Trick aliases.</p><div class="mt-4 text-xs font-bold text-gray-500 flex items-center gap-1.5 transition group-hover:text-purple-400">Launch Tool <i class="ph ph-arrow-right"></i></div></div>
+                        <div class="tool-card group" onclick="checkAccess('validator')"><div class="flex justify-between items-start mb-5"><i class="ph-fill ph-shield-check text-3xl text-green-400"></i><i id="lockIcon_validator" class="ph ph-lock-key text-gray-500 group-hover:text-red-400 transition"></i></div><h3 class="text-xl font-bold mb-2">Email Validator</h3><p class="text-gray-400 text-sm">Check live MX records.</p><div class="mt-4 text-xs font-bold text-gray-500 flex items-center gap-1.5 transition group-hover:text-purple-400">Launch Tool <i class="ph ph-arrow-right"></i></div></div>
+                        <div class="tool-card group" onclick="checkAccess('number')"><div class="flex justify-between items-start mb-5"><i class="ph-fill ph-device-mobile text-3xl text-purple-400"></i><i id="lockIcon_number" class="ph ph-lock-key text-gray-500 group-hover:text-red-400 transition"></i></div><h3 class="text-xl font-bold mb-2">Number Generator</h3><p class="text-gray-400 text-sm">Valid mobile number formats.</p><div class="mt-4 text-xs font-bold text-gray-500 flex items-center gap-1.5 transition group-hover:text-purple-400">Launch Tool <i class="ph ph-arrow-right"></i></div></div>
+                        <div class="tool-card group" onclick="checkAccess('address')"><div class="flex justify-between items-start mb-5"><i class="ph-fill ph-map-pin text-3xl text-yellow-400"></i><i id="lockIcon_address" class="ph ph-lock-key text-gray-500 group-hover:text-red-400 transition"></i></div><h3 class="text-xl font-bold mb-2">Address Generator</h3><p class="text-gray-400 text-sm">USA/UK real address profiles.</p><div class="mt-4 text-xs font-bold text-gray-500 flex items-center gap-1.5 transition group-hover:text-purple-400">Launch Tool <i class="ph ph-arrow-right"></i></div></div>
+                        <div class="tool-card opacity-60 cursor-not-allowed border-white/5"><div class="flex justify-between items-start mb-5"><i class="ph-fill ph-squares-four text-3xl text-gray-600"></i></div><h3 class="text-xl font-bold mb-2 text-gray-600">Identity Gen</h3><p class="text-gray-600 text-sm">Coming Soon.</p></div>
+                    </div>
+                </div>
+
+                <div id="toolConsole" class="bg-[#0b1121] border border-white/10 rounded-2xl p-6 hidden shadow-2xl mt-4 relative overflow-hidden">
+                    <div class="flex justify-between items-center mb-5 border-b border-white/10 pb-3 relative z-10">
+                        <span id="activeToolName" class="text-purple-400 font-bold font-mono text-lg flex items-center gap-2"><i class="ph ph-terminal-window"></i> Select a tool</span>
+                        <button onclick="document.getElementById('toolConsole').classList.add('hidden')" class="text-gray-500 hover:text-red-400"><i class="ph ph-x-circle text-xl"></i></button>
+                    </div>
+                    <div id="consoleOutput" class="text-sm"></div>
+                    <div class="mt-5 flex gap-3 relative z-10" id="toolControls"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a href="https://t.me/freelancernazmul" target="_blank" class="telegram-btn"><i class="ph-fill ph-telegram-logo"></i></a>
+    <footer class="bg-[#0b1121] border-t border-white/5 py-8 px-6 mt-12 text-center text-gray-600 text-xs"><p>Copyright ©️ 2026 ProToolsHub. All rights reserved.</p></footer>
+
+    <div id="lockModal" class="hidden fixed inset-0 z-[200] flex items-center justify-center bg-black/90 backdrop-blur-md p-6">
+        <div class="bg-[#1e293b] border border-red-500/30 p-8 rounded-2xl max-w-sm w-full text-center shadow-2xl relative">
+            <div class="absolute top-0 left-0 w-full h-1 bg-red-500"></div>
+            <button onclick="document.getElementById('lockModal').classList.add('hidden')" class="absolute top-3 right-3 text-gray-500"><i class="ph-bold ph-x"></i></button>
+            <div class="w-16 h-16 bg-red-500/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-red-500/20"><i class="ph-fill ph-lock-key text-red-500 text-3xl"></i></div>
+            <h3 class="text-2xl font-bold text-white mb-2">Access Locked!</h3>
+            <p class="text-gray-400 text-sm mb-6">You are on the <span class="text-red-400 font-bold">Free Plan</span>. Enter a valid VIP Code to unlock.</p>
+            <button onclick="document.getElementById('lockModal').classList.add('hidden'); document.getElementById('vipCodeInput').focus();" class="w-full py-3 bg-red-600 hover:bg-red-500 text-white font-bold rounded-xl transition shadow-lg">Enter Code</button>
+        </div>
+    </div>
+
+    <div id="authModal" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-sm p-4 overflow-y-auto">
+        <div class="relative w-full max-w-md bg-[#1e293b] border border-white/10 rounded-2xl shadow-2xl my-8 overflow-hidden">
+            <button onclick="closeAuthModal()" class="absolute top-5 right-5 text-gray-400"><i class="ph-bold ph-x text-xl"></i></button>
+            <div class="flex border-b border-white/10">
+                <button onclick="switchTab('login')" id="tabLogin" class="flex-1 py-4 text-sm font-bold text-white border-b-2 border-purple-500 bg-white/5">LOGIN</button>
+                <button onclick="switchTab('register')" id="tabRegister" class="flex-1 py-4 text-sm font-bold text-gray-400">REGISTER & PAY</button>
+            </div>
+            <form id="loginForm" class="p-8 space-y-4" onsubmit="handleAuth(event, 'login')">
+                <input type="email" name="email" placeholder="Email Address" required class="w-full bg-dark border border-white/10 rounded-lg px-4 py-3 text-white outline-none">
+                <input type="password" name="password" placeholder="Password" required class="w-full bg-dark border border-white/10 rounded-lg px-4 py-3 text-white outline-none">
+                <button type="submit" class="w-full py-3 bg-purple-600 hover:bg-purple-500 text-white font-bold rounded-lg shadow-lg">Login Now</button>
+            </form>
+            <form id="registerForm" class="hidden p-6 space-y-4 max-h-[80vh] overflow-y-auto" onsubmit="handleAuth(event, 'register')">
+                <div class="bg-purple-500/10 border border-purple-500/30 p-5 rounded-xl text-center mb-5"><p class="text-xs text-purple-300 font-bold mb-1.5">Send Money To (Personal)</p><h3 class="text-2xl font-mono font-bold text-white tracking-wider">01780103303</h3><div class="flex justify-center gap-2 mt-2 text-[10px] text-gray-400"><span class="bg-pink-600/20 px-2 py-0.5 rounded">Bkash</span><span class="bg-orange-600/20 px-2 py-0.5 rounded">Nagad</span></div></div>
+                <div class="grid grid-cols-2 gap-3"><input type="text" name="name" placeholder="Full Name" required class="bg-dark border border-white/10 rounded-lg px-4 py-3 text-white outline-none"><input type="text" name="phone" placeholder="Phone" required class="bg-dark border border-white/10 rounded-lg px-4 py-3 text-white outline-none"></div>
+                <input type="email" name="email" placeholder="Email Address" required class="w-full bg-dark border border-white/10 rounded-lg px-4 py-3 text-white outline-none">
+                <input type="password" name="password" placeholder="Set Password" required autocomplete="new-password" class="w-full bg-dark border border-white/10 rounded-lg px-4 py-3 text-white outline-none">
+                <div class="border-t border-white/10 pt-5 mt-3"><p class="text-xs text-gray-400 mb-3 font-bold uppercase">Payment Verification</p><div class="grid grid-cols-2 gap-3"><select name="method" class="bg-dark border border-white/10 rounded-lg px-4 py-3 text-white outline-none"><option value="Bkash">Bkash</option><option value="Nagad">Nagad</option></select><input type="text" name="sender" placeholder="Sender Number" required class="bg-dark border border-white/10 rounded-lg px-4 py-3 text-white outline-none"></div><input type="text" name="trxid" placeholder="Transaction ID" required class="w-full mt-3 bg-dark border border-white/10 rounded-lg px-4 py-3 text-white outline-none uppercase"></div>
+                <input type="hidden" name="plan" id="selectedPlan" value="Free">
+                <button type="submit" class="w-full py-3 bg-green-600 hover:bg-green-500 text-white font-bold rounded-lg shadow-lg mt-2">Verify & Register</button>
+            </form>
+            <div id="authMessage" class="px-8 pb-6 text-center text-xs font-bold hidden animate-pulse"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
